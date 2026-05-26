@@ -1371,8 +1371,8 @@
                 <div class="form-group">
                   <label class="form-label" for="settingModelSelect">Google Gemini 모델 선택</label>
                   <select id="settingModelSelect" class="form-control" onchange="toggleCustomModelInput()">
-                    <option value="gemini-1.5-flash">gemini-1.5-flash (속도 빠름, 일반 권장)</option>
-                    <option value="gemini-2.5-flash">gemini-2.5-flash (최신 고성능 모델)</option>
+                    <option value="gemini-2.5-flash">gemini-2.5-flash (최신 고성능 모델 - 권장)</option>
+                    <option value="gemini-1.5-flash">gemini-1.5-flash (속도 빠름)</option>
                     <option value="gemini-1.5-pro">gemini-1.5-pro (글 분석 고도화, 다소 느림)</option>
                     <option value="custom">직접 입력 (Custom)...</option>
                   </select>
@@ -1569,7 +1569,7 @@
       if(!localStorage.getItem('SCHOOL_NAME')) localStorage.setItem('SCHOOL_NAME', '삼현여자중학교');
       if(!localStorage.getItem('APP_TITLE')) localStorage.setItem('APP_TITLE', '글쓰기 코칭 시스템');
       if(!localStorage.getItem('ADMIN_PASSWORD')) localStorage.setItem('ADMIN_PASSWORD', 'admin1234');
-      if(!localStorage.getItem('GEMINI_MODEL')) localStorage.setItem('GEMINI_MODEL', 'gemini-1.5-flash');
+      if(!localStorage.getItem('GEMINI_MODEL')) localStorage.setItem('GEMINI_MODEL', 'gemini-2.5-flash');
       
       // Load assignments
       const storedAssigns = localStorage.getItem('ASSIGNMENT_LIST');
@@ -1604,7 +1604,7 @@
       document.getElementById('settingSchoolName').value = localStorage.getItem('SCHOOL_NAME');
       document.getElementById('settingAppTitle').value = localStorage.getItem('APP_TITLE');
       
-      const storedModel = localStorage.getItem('GEMINI_MODEL') || 'gemini-1.5-flash';
+      const storedModel = localStorage.getItem('GEMINI_MODEL') || 'gemini-2.5-flash';
       const modelSelect = document.getElementById('settingModelSelect');
       const modelInput = document.getElementById('settingModelName');
       if (['gemini-1.5-flash', 'gemini-2.5-flash', 'gemini-1.5-pro'].includes(storedModel)) {
@@ -1974,7 +1974,7 @@
         throw new Error('API 키가 설정되지 않았습니다! 오른쪽 상단 [설정] 메뉴에서 API 키를 입력해 주세요.');
       }
 
-      const model = localStorage.getItem('GEMINI_MODEL') || 'gemini-1.5-flash';
+      const model = localStorage.getItem('GEMINI_MODEL') || 'gemini-2.5-flash';
       const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
       const response = await fetch(url, {
