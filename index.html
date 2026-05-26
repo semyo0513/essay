@@ -972,10 +972,6 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
           교사 관리자
         </button>
-        <button id="navSettingsBtn" class="btn btn-outline" onclick="switchView('settings')">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-          설정
-        </button>
       </div>
     </div>
   </header>
@@ -1267,7 +1263,7 @@
           <div class="admin-menu-item" onclick="switchAdminSubView('student-list')">
             학생 제출물 분석
           </div>
-          <div class="admin-menu-item" onclick="switchView('settings')">
+          <div class="admin-menu-item" onclick="switchAdminSubView('settings')">
             과제 및 시스템 설정
           </div>
         </div>
@@ -1346,78 +1342,82 @@
               <!-- Individual detail filled here -->
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- SETTINGS VIEW -->
-  <section id="view-settings" class="view-section">
-    <div class="container">
-      <div class="settings-grid">
-        <div class="panel">
-          <h2 style="margin-bottom: 1.5rem; color: var(--primary);">시스템 환경 설정</h2>
-          
-          <div class="form-group">
-            <label class="form-label" for="settingApiKey">Google Gemini API Key</label>
-            <input type="password" id="settingApiKey" class="form-control" placeholder="AI Studio에서 발급받은 API 키 입력">
-            <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.4rem;">
-              * 본 키는 서버에 저장되지 않고, 귀하의 현재 웹 브라우저 내에만 암호화 및 보관됩니다. <br>
-              * API 키가 없는 경우 AI 코칭을 받을 수 없습니다. [ <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--accent);">무료 API 키 발급받기</a> ]
-            </p>
-          </div>
+          <!-- SUB VIEW: Settings (Moved inside admin workspace for protection) -->
+          <div id="admin-subview-settings" style="display:none;">
+            <div class="settings-grid" style="grid-template-columns: 1fr; max-width: 100%;">
+              <div class="panel">
+                <h2 style="margin-bottom: 1.5rem; color: var(--primary);">시스템 환경 설정</h2>
+                
+                <div class="form-group">
+                  <label class="form-label" for="settingApiKey">Google Gemini API Key</label>
+                  <input type="password" id="settingApiKey" class="form-control" placeholder="AI Studio에서 발급받은 API 키 입력">
+                  <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.4rem;">
+                    * 본 키는 서버에 저장되지 않고, 귀하의 현재 웹 브라우저 내에만 암호화 및 보관됩니다. <br>
+                    * API 키가 없는 경우 AI 코칭을 받을 수 없습니다. [ <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--accent);">무료 API 키 발급받기</a> ]
+                  </p>
+                </div>
 
-          <div class="form-group">
-            <label class="form-label" for="settingSchoolName">학교명</label>
-            <input type="text" id="settingSchoolName" class="form-control" value="삼현여자중학교">
-          </div>
+                <div class="form-group">
+                  <label class="form-label" for="settingSchoolName">학교명</label>
+                  <input type="text" id="settingSchoolName" class="form-control" value="삼현여자중학교">
+                </div>
 
-          <div class="form-group">
-            <label class="form-label" for="settingAppTitle">시스템 앱 제목</label>
-            <input type="text" id="settingAppTitle" class="form-control" value="글쓰기 코칭 시스템">
-          </div>
+                <div class="form-group">
+                  <label class="form-label" for="settingAppTitle">시스템 앱 제목</label>
+                  <input type="text" id="settingAppTitle" class="form-control" value="글쓰기 코칭 시스템">
+                </div>
 
-          <div class="form-group">
-            <label class="form-label" for="settingModelName">Google Gemini 모델명</label>
-            <input type="text" id="settingModelName" class="form-control" value="gemini-1.5-flash">
-            <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.4rem;">
-              * 기본값은 <code>gemini-1.5-flash</code>이며, <code>gemini-2.5-flash</code> 등으로 변경 가능합니다.
-            </p>
-          </div>
+                <div class="form-group">
+                  <label class="form-label" for="settingModelSelect">Google Gemini 모델 선택</label>
+                  <select id="settingModelSelect" class="form-control" onchange="toggleCustomModelInput()">
+                    <option value="gemini-1.5-flash">gemini-1.5-flash (속도 빠름, 일반 권장)</option>
+                    <option value="gemini-2.5-flash">gemini-2.5-flash (최신 고성능 모델)</option>
+                    <option value="gemini-1.5-pro">gemini-1.5-pro (글 분석 고도화, 다소 느림)</option>
+                    <option value="custom">직접 입력 (Custom)...</option>
+                  </select>
+                </div>
+                <div class="form-group" id="customModelInputGroup" style="display: none;">
+                  <label class="form-label" for="settingModelName">직접 입력할 모델명</label>
+                  <input type="text" id="settingModelName" class="form-control" placeholder="예: gemini-2.0-flash-exp">
+                </div>
 
-          <div class="form-group">
-            <label class="form-label" for="settingAdminPassword">교사(관리자) 로그인 비밀번호</label>
-            <input type="password" id="settingAdminPassword" class="form-control" value="admin1234">
-          </div>
+                <div class="form-group">
+                  <label class="form-label" for="settingAdminPassword">교사(관리자) 로그인 비밀번호</label>
+                  <input type="password" id="settingAdminPassword" class="form-control" value="admin1234">
+                </div>
 
-          <button class="btn btn-primary" style="width: 100%; margin-top: 1rem; justify-content: center;" onclick="saveSystemSettings()">
-            설정 저장하기
-          </button>
-        </div>
+                <button class="btn btn-primary" style="width: 100%; margin-top: 1rem; justify-content: center;" onclick="saveSystemSettings()">
+                  설정 저장하기
+                </button>
+              </div>
 
-        <!-- Assignment management CRUD -->
-        <div class="panel">
-          <h3 style="margin-bottom: 1rem; color: var(--primary);">글쓰기 과제 리스트 관리</h3>
-          <div class="form-group">
-            <button class="btn btn-secondary" style="margin-bottom: 1rem;" onclick="openAddAssignmentModal()">
-              ➕ 새 과제 등록하기
-            </button>
-          </div>
-          
-          <div class="table-container">
-            <table id="settingsAssignmentTable">
-              <thead>
-                <tr>
-                  <th>과제명</th>
-                  <th>유형</th>
-                  <th>대상 학년</th>
-                  <th>삭제</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Assignment rows generated dynamically -->
-              </tbody>
-            </table>
+              <!-- Assignment management CRUD -->
+              <div class="panel">
+                <h3 style="margin-bottom: 1rem; color: var(--primary);">글쓰기 과제 리스트 관리</h3>
+                <div class="form-group">
+                  <button class="btn btn-secondary" style="margin-bottom: 1rem;" onclick="openAddAssignmentModal()">
+                    ➕ 새 과제 등록하기
+                  </button>
+                </div>
+                
+                <div class="table-container">
+                  <table id="settingsAssignmentTable">
+                    <thead>
+                      <tr>
+                        <th>과제명</th>
+                        <th>유형</th>
+                        <th>대상 학년</th>
+                        <th>삭제</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Assignment rows generated dynamically -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1603,7 +1603,20 @@
       // Render settings inputs
       document.getElementById('settingSchoolName').value = localStorage.getItem('SCHOOL_NAME');
       document.getElementById('settingAppTitle').value = localStorage.getItem('APP_TITLE');
-      document.getElementById('settingModelName').value = localStorage.getItem('GEMINI_MODEL') || 'gemini-1.5-flash';
+      
+      const storedModel = localStorage.getItem('GEMINI_MODEL') || 'gemini-1.5-flash';
+      const modelSelect = document.getElementById('settingModelSelect');
+      const modelInput = document.getElementById('settingModelName');
+      if (['gemini-1.5-flash', 'gemini-2.5-flash', 'gemini-1.5-pro'].includes(storedModel)) {
+        modelSelect.value = storedModel;
+        modelInput.value = '';
+        document.getElementById('customModelInputGroup').style.display = 'none';
+      } else {
+        modelSelect.value = 'custom';
+        modelInput.value = storedModel;
+        document.getElementById('customModelInputGroup').style.display = 'block';
+      }
+
       document.getElementById('settingAdminPassword').value = localStorage.getItem('ADMIN_PASSWORD');
       document.getElementById('settingApiKey').value = localStorage.getItem('GEMINI_API_KEY') || '';
       renderSettingsAssignmentTable();
@@ -1620,7 +1633,6 @@
       // Adjust header nav button styles
       document.getElementById('navStudentBtn').className = "btn " + (viewId.startsWith('student') ? 'btn-primary' : 'btn-outline');
       document.getElementById('navAdminBtn').className = "btn " + (viewId.startsWith('teacher') ? 'btn-primary' : 'btn-outline');
-      document.getElementById('navSettingsBtn').className = "btn " + (viewId === 'settings' ? 'btn-primary' : 'btn-outline');
 
       // Clear interval if leaving writing area
       if (!viewId.startsWith('student-writing')) {
@@ -2254,11 +2266,13 @@ ${finalEssay}
     function switchAdminSubView(subView) {
       document.getElementById('admin-subview-dashboard').style.display = (subView === 'dashboard') ? 'block' : 'none';
       document.getElementById('admin-subview-student-list').style.display = (subView === 'student-list') ? 'block' : 'none';
+      document.getElementById('admin-subview-settings').style.display = (subView === 'settings') ? 'block' : 'none';
 
       document.querySelectorAll('.admin-sidebar .admin-menu-item').forEach(el => {
         el.classList.remove('active');
         if(el.innerText.includes('대시보드') && subView === 'dashboard') el.classList.add('active');
         if(el.innerText.includes('제출물') && subView === 'student-list') el.classList.add('active');
+        if(el.innerText.includes('과제 및 시스템 설정') && subView === 'settings') el.classList.add('active');
       });
 
       if (subView === 'student-list') {
@@ -2540,12 +2554,27 @@ ${finalEssay}
 
 
     // --- System Configurations & Settings Panel ---
+    function toggleCustomModelInput() {
+      const select = document.getElementById('settingModelSelect');
+      const customGroup = document.getElementById('customModelInputGroup');
+      if (select.value === 'custom') {
+        customGroup.style.display = 'block';
+      } else {
+        customGroup.style.display = 'none';
+      }
+    }
+
     function saveSystemSettings() {
       const key = document.getElementById('settingApiKey').value.trim();
       const school = document.getElementById('settingSchoolName').value.trim();
       const title = document.getElementById('settingAppTitle').value.trim();
-      const model = document.getElementById('settingModelName').value.trim();
       const pass = document.getElementById('settingAdminPassword').value.trim();
+
+      const selectVal = document.getElementById('settingModelSelect').value;
+      let model = selectVal;
+      if (selectVal === 'custom') {
+        model = document.getElementById('settingModelName').value.trim();
+      }
 
       if (!school || !title || !pass || !model) {
         alert('학교명, 앱 제목, 모델명, 비밀번호는 필수 입력입니다.');
