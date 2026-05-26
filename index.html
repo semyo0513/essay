@@ -1378,6 +1378,14 @@
           </div>
 
           <div class="form-group">
+            <label class="form-label" for="settingModelName">Google Gemini 모델명</label>
+            <input type="text" id="settingModelName" class="form-control" value="gemini-1.5-flash">
+            <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.4rem;">
+              * 기본값은 <code>gemini-1.5-flash</code>이며, <code>gemini-2.5-flash</code> 등으로 변경 가능합니다.
+            </p>
+          </div>
+
+          <div class="form-group">
             <label class="form-label" for="settingAdminPassword">교사(관리자) 로그인 비밀번호</label>
             <input type="password" id="settingAdminPassword" class="form-control" value="admin1234">
           </div>
@@ -1561,6 +1569,7 @@
       if(!localStorage.getItem('SCHOOL_NAME')) localStorage.setItem('SCHOOL_NAME', '삼현여자중학교');
       if(!localStorage.getItem('APP_TITLE')) localStorage.setItem('APP_TITLE', '글쓰기 코칭 시스템');
       if(!localStorage.getItem('ADMIN_PASSWORD')) localStorage.setItem('ADMIN_PASSWORD', 'admin1234');
+      if(!localStorage.getItem('GEMINI_MODEL')) localStorage.setItem('GEMINI_MODEL', 'gemini-1.5-flash');
       
       // Load assignments
       const storedAssigns = localStorage.getItem('ASSIGNMENT_LIST');
@@ -1594,6 +1603,7 @@
       // Render settings inputs
       document.getElementById('settingSchoolName').value = localStorage.getItem('SCHOOL_NAME');
       document.getElementById('settingAppTitle').value = localStorage.getItem('APP_TITLE');
+      document.getElementById('settingModelName').value = localStorage.getItem('GEMINI_MODEL') || 'gemini-1.5-flash';
       document.getElementById('settingAdminPassword').value = localStorage.getItem('ADMIN_PASSWORD');
       document.getElementById('settingApiKey').value = localStorage.getItem('GEMINI_API_KEY') || '';
       renderSettingsAssignmentTable();
@@ -1952,8 +1962,8 @@
         throw new Error('API 키가 설정되지 않았습니다! 오른쪽 상단 [설정] 메뉴에서 API 키를 입력해 주세요.');
       }
 
-      const model = 'gemini-1.5-flash';
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+      const model = localStorage.getItem('GEMINI_MODEL') || 'gemini-1.5-flash';
+      const url = `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${apiKey}`;
 
       const response = await fetch(url, {
         method: 'POST',
@@ -2534,16 +2544,18 @@ ${finalEssay}
       const key = document.getElementById('settingApiKey').value.trim();
       const school = document.getElementById('settingSchoolName').value.trim();
       const title = document.getElementById('settingAppTitle').value.trim();
+      const model = document.getElementById('settingModelName').value.trim();
       const pass = document.getElementById('settingAdminPassword').value.trim();
 
-      if (!school || !title || !pass) {
-        alert('학교명, 앱 제목, 비밀번호는 필수 입력입니다.');
+      if (!school || !title || !pass || !model) {
+        alert('학교명, 앱 제목, 모델명, 비밀번호는 필수 입력입니다.');
         return;
       }
 
       localStorage.setItem('GEMINI_API_KEY', key);
       localStorage.setItem('SCHOOL_NAME', school);
       localStorage.setItem('APP_TITLE', title);
+      localStorage.setItem('GEMINI_MODEL', model);
       localStorage.setItem('ADMIN_PASSWORD', pass);
 
       // Apply to UI instantly
